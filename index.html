@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>exotic1wlpp – Anime Wallpapers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Maru+Gothic:wght@400;700&display=swap">
+<style>
+:root{--bg:#0e0a1f;--surface:#1a1333;--ink:#f4efff;--muted:#a79bc9;--pink:#ff4fa3;--violet:#8a5cff;--cyan:#3de1ff;--line:#33285c;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#fff6fb;--surface:#ffffff;--ink:#241345;--muted:#6d5c96;--line:#e6d6f5;color-scheme:light}}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic",system-ui,sans-serif;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header.hero{position:relative;overflow:hidden;padding:56px 0 40px}
+.hero .kanji{position:absolute;right:-10px;top:-30px;font-family:"Dela Gothic One",sans-serif;font-size:min(46vw,300px);line-height:1;writing-mode:vertical-rl;color:transparent;-webkit-text-stroke:2px var(--pink);opacity:.55;user-select:none;pointer-events:none}
+.hero h1{position:relative;font-family:"Dela Gothic One",system-ui,sans-serif;font-size:clamp(1.9rem,7.4vw,4.4rem);overflow-wrap:anywhere;line-height:1;margin:0 0 14px;letter-spacing:-.01em;text-shadow:0 0 24px rgba(255,79,163,.55)}
+.hero p{position:relative;max-width:34ch;margin:0;color:var(--muted);font-size:1.1rem}
+.bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:8px 0 24px}
+.bar input{flex:1 1 220px;padding:12px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit}
+.bar input:focus-visible,.chip:focus-visible,.card:focus-visible,.close:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--pink);border-color:var(--pink);color:#1a0a2a;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;padding-bottom:60px}
+.card{position:relative;aspect-ratio:9/14;border-radius:18px;overflow:hidden;border:1px solid var(--line);cursor:pointer;padding:0;color:#fff;text-align:left;background-size:cover;background-position:center}
+.card .k{position:absolute;top:10px;left:14px;font-family:"Dela Gothic One",sans-serif;font-size:3.2rem;opacity:.28;line-height:1}
+.card .meta{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 14px;background:linear-gradient(transparent,rgba(8,4,20,.85))}
+.card b{display:block;font-size:1.05rem}
+.card span{font-size:.85rem;opacity:.8}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:40px 0}
+.modal{position:fixed;inset:0;background:rgba(6,3,16,.88);display:none;align-items:center;justify-content:center;padding:20px;z-index:20}
+.modal.open{display:flex}
+.view{position:relative;width:min(92vw,420px);aspect-ratio:9/14;max-height:86vh;border-radius:22px;border:2px solid var(--pink);box-shadow:0 0 40px rgba(255,79,163,.45);background-size:cover;background-position:center;color:#fff}
+.view .k{position:absolute;top:16px;left:20px;font-family:"Dela Gothic One",sans-serif;font-size:6rem;opacity:.3;line-height:1}
+.view .meta{position:absolute;left:0;right:0;bottom:0;padding:48px 20px 20px;background:linear-gradient(transparent,rgba(8,4,20,.9));border-radius:0 0 20px 20px}
+.view h2{margin:0;font-size:1.4rem}
+.view p{margin:4px 0 0;opacity:.85}
+.close{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:1.3rem;cursor:pointer}
+footer{padding:24px 0 40px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+header.hero,main,footer{position:relative;z-index:1}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<header class="hero">
+  <div class="kanji" aria-hidden="true">壁紙</div>
+  <div class="wrap">
+    <h1>exotic1wlpp</h1>
+    <p>Anime wallpapers for your phone and desktop. Pick a mood, tap to preview.</p>
+  </div>
+</header>
+<main class="wrap">
+  <div class="bar">
+    <input id="q" type="search" placeholder="Search wallpapers" aria-label="Search wallpapers">
+    <div class="chips" id="chips"></div>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+<footer>exotic1wlpp · made by a weeb, for weebs</footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Wallpaper preview">
+  <div class="view" id="view"><button class="close" id="close" aria-label="Close preview">✕</button></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// To use real wallpapers on your own site, add src:"images/name.jpg" to an item.
+var W=[
+{t:"Neon Alley",c:"Cyberpunk",k:"夜",g:"linear-gradient(160deg,#ff4fa3,#3d1a8c 55%,#0b1b4d)"},
+{t:"Chrome Rain",c:"Cyberpunk",k:"雨",g:"linear-gradient(200deg,#3de1ff,#2a2a7a 50%,#12082b)"},
+{t:"Last Blade",c:"Action",k:"刀",g:"linear-gradient(170deg,#ff6a3d,#9b1c4f 55%,#1a0a2a)"},
+{t:"Storm Rush",c:"Action",k:"嵐",g:"linear-gradient(150deg,#7b8cff,#27236b 55%,#0a0820)"},
+{t:"Sakura Break",c:"Chill",k:"桜",g:"linear-gradient(180deg,#ffc2e0,#d65fa8 55%,#4b1d6b)"},
+{t:"Lofi Window",c:"Chill",k:"窓",g:"linear-gradient(190deg,#ffb36b,#c0527a 50%,#2c1654)"},
+{t:"Moon Shrine",c:"Fantasy",k:"月",g:"linear-gradient(165deg,#c9b8ff,#5a3fc0 50%,#120a33)"},
+{t:"Dragon Sky",c:"Fantasy",k:"竜",g:"linear-gradient(155deg,#3dffb0,#1a7a8c 50%,#0a1a3a)"},
+{t:"Midnight Ramen",c:"Chill",k:"麺",g:"linear-gradient(175deg,#ffd36b,#e0603d 50%,#3a1042)"},
+{t:"Hacker Girl",c:"Cyberpunk",k:"電",g:"linear-gradient(145deg,#3dff8a,#0f5a6b 50%,#07101f)"},
+{t:"Demon Hour",c:"Action",k:"鬼",g:"linear-gradient(185deg,#ff3d5a,#7a123f 50%,#14061f)"},
+{t:"Spirit Garden",c:"Fantasy",k:"霊",g:"linear-gradient(160deg,#9bffe0,#5a6fe0 50%,#1b0f4a)"}
+];
+var cats=["All","Action","Chill","Cyberpunk","Fantasy"],cur="All";
+var grid=document.getElementById("grid"),chips=document.getElementById("chips"),q=document.getElementById("q"),modal=document.getElementById("modal"),view=document.getElementById("view");
+function bg(w){return w.src?"url("+w.src+") center/cover":w.g}
+function draw(){
+  var s=q.value.trim().toLowerCase();
+  var list=W.filter(function(w){return (cur==="All"||w.c===cur)&&(!s||(w.t+" "+w.c).toLowerCase().indexOf(s)>-1)});
+  grid.innerHTML="";
+  if(!list.length){grid.innerHTML='<p class="empty">No wallpapers match. Try another word or category.</p>';return}
+  list.forEach(function(w){
+    var b=document.createElement("button");
+    b.className="card";b.style.background=bg(w);
+    b.innerHTML='<span class="k" aria-hidden="true">'+w.k+'</span><span class="meta"><b>'+w.t+'</b><span>'+w.c+'</span></span>';
+    b.onclick=function(){open(w)};
+    grid.appendChild(b);
+  });
+}
+function mkChips(){
+  chips.innerHTML="";
+  cats.forEach(function(c){
+    var b=document.createElement("button");
+    b.className="chip";b.textContent=c;b.setAttribute("aria-pressed",c===cur);
+    b.onclick=function(){cur=c;mkChips();draw()};
+    chips.appendChild(b);
+  });
+}
+function open(w){
+  view.style.background=bg(w);
+  view.querySelector(".k")&&view.querySelector(".k").remove();
+  view.querySelector(".meta")&&view.querySelector(".meta").remove();
+  view.insertAdjacentHTML("beforeend",'<span class="k" aria-hidden="true">'+w.k+'</span><div class="meta"><h2>'+w.t+'</h2><p>'+w.c+'</p></div>');
+  modal.classList.add("open");document.getElementById("close").focus();
+}
+function shut(){modal.classList.remove("open")}
+document.getElementById("close").onclick=shut;
+modal.onclick=function(e){if(e.target===modal)shut()};
+document.addEventListener("keydown",function(e){if(e.key==="Escape")shut()});
+q.oninput=draw;
+(function(){
+try{
+if(!window.THREE)return;
+var cv=document.getElementById("bg");
+var r=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+r.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+var sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(60,1,0.1,100);cam.position.z=14;
+var cols=[0xff4fa3,0x8a5cff,0x3de1ff],shapes=[];
+var geos=[new THREE.IcosahedronGeometry(1,0),new THREE.TorusGeometry(.8,.28,10,24),new THREE.OctahedronGeometry(1,0),new THREE.TorusKnotGeometry(.6,.2,48,8)];
+for(var i=0;i<22;i++){
+var m=new THREE.Mesh(geos[i%4],new THREE.MeshBasicMaterial({color:cols[i%3],wireframe:true,transparent:true,opacity:.45}));
+m.position.set((Math.random()-.5)*30,(Math.random()-.5)*20,(Math.random()-.5)*14-2);
+var s=.6+Math.random()*1.4;m.scale.set(s,s,s);
+m.userData={rx:(Math.random()-.5)*.012,ry:(Math.random()-.5)*.012,ph:Math.random()*6,y0:m.position.y};
+sc.add(m);shapes.push(m);
+}
+var n=400,pos=new Float32Array(n*3);
+for(var j=0;j<n*3;j+=3){pos[j]=(Math.random()-.5)*50;pos[j+1]=(Math.random()-.5)*34;pos[j+2]=(Math.random()-.5)*30-6}
+var g=new THREE.BufferGeometry();g.setAttribute("position",new THREE.BufferAttribute(pos,3));
+var pts=new THREE.Points(g,new THREE.PointsMaterial({color:0xffffff,size:.07,transparent:true,opacity:.7}));
+sc.add(pts);
+var mx=0,my=0,reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+function size(){var w=window.innerWidth,h=window.innerHeight;r.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();if(reduce)r.render(sc,cam)}
+window.addEventListener("resize",size);size();
+window.addEventListener("pointermove",function(e){mx=e.clientX/window.innerWidth-.5;my=e.clientY/window.innerHeight-.5});
+var t=0;
+function loop(){
+t+=.01;
+shapes.forEach(function(m){m.rotation.x+=m.userData.rx;m.rotation.y+=m.userData.ry;m.position.y=m.userData.y0+Math.sin(t+m.userData.ph)*.6});
+pts.rotation.y=t*.05;
+cam.position.x+=(mx*3-cam.position.x)*.04;
+cam.position.y+=(-my*2-window.scrollY*.004-cam.position.y)*.04;
+cam.lookAt(0,cam.position.y*.5,0);
+r.render(sc,cam);
+requestAnimationFrame(loop);
+}
+if(!reduce)loop();
+}catch(e){console.error(e)}
+})();
+mkChips();draw();
+</script>
+</body>
+</html>
